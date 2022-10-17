@@ -1,13 +1,12 @@
 import NavBar from "../components/NavBar";
 
-
-const Index = () => {
+const About = () => {
   return (
     <div>
       <NavBar />
-      <h1>hello</h1>
+      <h1>About-Us</h1>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default About;
