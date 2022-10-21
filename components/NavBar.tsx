@@ -7,12 +7,14 @@ const NavBar = () => {
   return (
     <nav>
       <img src={"/vercel.svg"} alt={"logo"} />
-      <Link href={"/"}>
-        <a className={router.pathname === "/" ? "active" : ""}>Home</a>
-      </Link>
-      <Link href={"/about"}>
-        <a className={router.pathname === "/about" ? "active" : ""}>About</a>
-      </Link>
+      <div>
+        <Link href={"/"}>
+          <a className={router.pathname === "/" ? "active" : ""}>Home</a>
+        </Link>
+        <Link href={"/about"}>
+          <a className={router.pathname === "/about" ? "active" : ""}>About</a>
+        </Link>
+      </div>
       <style jsx>{`
         nav {
           display: flex;
@@ -37,6 +39,7 @@ const NavBar = () => {
         }
         nav div {
           display: flex;
+          flex-direction: row;
           gap: 10px;
         }
       `}</style>

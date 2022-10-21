@@ -8,7 +8,7 @@ const App = ({Component, pageProps}: AppProps) => {
       <Component {...pageProps} />
       <style jsx global>{`
         a {
-          color: black;
+          color: white;
         }
       `}</style>
     </Layout>
