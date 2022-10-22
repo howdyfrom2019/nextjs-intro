@@ -7,11 +7,11 @@ const Index = ({results}: any) => {
   const router = useRouter();
   const onClick = useCallback((id: number | string, title: string) => {
     router.push({
-      pathname: `/movies/${id}`,
+      pathname: `/movies/${title}/${id}`,
       query: {
         title: title
       }
-    }, `/movies/${id}`)
+    }, `movies/${title}/${id}`)
   }, [router]);
   return (
     <div>
@@ -22,13 +22,7 @@ const Index = ({results}: any) => {
             <div className="movie">
               <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={"poster"}/>
               <h4>
-                <Link
-                  href={{
-                    pathname: `/movies/${movie.id}`,
-                    query: {
-                      title: movie.original_title
-                    }
-                  }} as={`/movies/${movie.id}`}>
+                <Link href={`/movies/${movie.original_title}/${movie.id}`} as={`movies/${movie.original_title}/${movie.id}`}>
                   <a>{movie.original_title}</a>
                 </Link>
               </h4>
