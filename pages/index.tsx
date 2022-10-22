@@ -1,16 +1,37 @@
-import {useEffect, useState} from "react";
 import Seo from "../components/Seo";
+import Link from "next/link";
+import {useRouter} from "next/router";
+import {useCallback} from "react";
 
-const Index = ({ results }: any) => {
+const Index = ({results}: any) => {
+  const router = useRouter();
+  const onClick = useCallback((id: number | string, title: string) => {
+    router.push({
+      pathname: `/movies/${id}`,
+      query: {
+        title: title
+      }
+    }, `/movies/${id}`)
+  }, [router]);
   return (
     <div>
       <div className={"container"}>
         <Seo title={"Home"}/>
         {results?.map((movie: any) => (
-          <div key={movie.id}>
-            <div className="movie" key={movie.id}>
+          <div key={movie.id} onClick={() => onClick(movie.id, movie.original_title)}>
+            <div className="movie">
               <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={"poster"}/>
-              <h4>{movie.original_title}</h4>
+              <h4>
+                <Link
+                  href={{
+                    pathname: `/movies/${movie.id}`,
+                    query: {
+                      title: movie.original_title
+                    }
+                  }} as={`/movies/${movie.id}`}>
+                  <a>{movie.original_title}</a>
+                </Link>
+              </h4>
             </div>
           </div>
         ))}
@@ -20,6 +41,10 @@ const Index = ({ results }: any) => {
             grid-template-columns: 1fr 1fr;
             padding: 20px;
             gap: 20px;
+          }
+
+          .movie {
+            cursor: pointer;
           }
 
           .movie img {
@@ -45,9 +70,9 @@ const Index = ({ results }: any) => {
 
 export default Index;
 
-export const getServerSideProps = async() => {
-  const { results } = await (await fetch(`http://localhost:3000/api/movies`)).json();
+export const getServerSideProps = async () => {
+  const {results} = await (await fetch(`http://localhost:3000/api/movies`)).json();
   return {
-    props: { results },
+    props: {results},
   };
 }
